@@ -8,9 +8,9 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "importHelpers": true,
-        "target": "es2015",
+        "target": "es2020",
         "module": "esnext",
-        "lib": ["es2017", "dom"],
+        "lib": ["es2020", "dom"],
         "skipLibCheck": true,
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
@@ -29,7 +29,8 @@
             "@automapper/mikro": ["packages/mikro/src/index.ts"],
             "@automapper/nestjs": ["packages/nestjs/src/index.ts"],
             "@automapper/pojos": ["packages/pojos/src/index.ts"],
-            "@automapper/sequelize": ["packages/sequelize/src/index.ts"]
+            "@automapper/sequelize": ["packages/sequelize/src/index.ts"],
+            "@automapper/zod": ["packages/zod/src/index.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]

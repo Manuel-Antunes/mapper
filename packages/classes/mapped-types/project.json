@@ -1,18 +1,13 @@
 {
+    "name": "classes-mapped-types",
     "$schema": "../../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "packages/classes/mapped-types/src",
     "targets": {
         "package": {
-            "executor": "nx:run-commands",
-            "options": {
-                "commands": [
-                    "NX_CLOUD=true nx package-lib classes-mapped-types"
-                ],
-                "parallel": false
-            }
+            "command": "NX_CLOUD=true nx package-lib classes-mapped-types"
         },
         "package-lib": {
-            "executor": "@nrwl/web:rollup",
+            "executor": "@nrwl/rollup:rollup",
             "outputs": ["{options.outputPath}"],
             "options": {
                 "project": "packages/classes/mapped-types/package.json",

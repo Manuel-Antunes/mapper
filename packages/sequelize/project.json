@@ -1,16 +1,13 @@
 {
+    "name": "sequelize",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "packages/sequelize/src",
     "targets": {
         "package": {
-            "executor": "nx:run-commands",
-            "options": {
-                "commands": ["NX_CLOUD=true nx package-lib sequelize"],
-                "parallel": false
-            }
+            "command": "NX_CLOUD=true nx package-lib sequelize"
         },
         "package-lib": {
-            "executor": "@nrwl/web:rollup",
+            "executor": "@nrwl/rollup:rollup",
             "outputs": ["{options.outputPath}"],
             "options": {
                 "project": "packages/sequelize/package.json",

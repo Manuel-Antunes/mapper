@@ -1,16 +1,13 @@
 {
+    "name": "nestjs",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "packages/nestjs/src",
     "targets": {
         "package": {
-            "executor": "nx:run-commands",
-            "options": {
-                "commands": ["NX_CLOUD=true nx package-lib nestjs"],
-                "parallel": false
-            }
+            "command": "NX_CLOUD=true nx package-lib nestjs"
         },
         "package-lib": {
-            "executor": "@nrwl/web:rollup",
+            "executor": "@nrwl/rollup:rollup",
             "outputs": ["{options.outputPath}"],
             "options": {
                 "project": "packages/nestjs/package.json",
