@@ -1,3 +1,4 @@
+import { MappingError } from '../errors/mapping-error';
 import type {
     Constructor,
     Dictionary,
@@ -46,11 +47,12 @@ export function assertUnmappedProperties<
 
     if (unmappedKeys.length) {
         const parentInfo = `${sourceText} -> ${destinationText}`;
-        errorHandler.handle(`
+        const error = new MappingError(`
 Unmapped properties for ${parentInfo}:
 -------------------
 ${unmappedKeys.join(',\n')}
 `);
+        errorHandler.handle(error);
     }
 }
 

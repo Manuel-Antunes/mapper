@@ -1,3 +1,4 @@
+import { MappingError } from './errors/mapping-error';
 import { mapMutate, mapReturn } from './mappings/map';
 import {
     CUSTOM_NODE_INSPECT,
@@ -175,11 +176,14 @@ Mapper {} is an empty Object as a Proxy. The following methods are available to 
 
                 if (p === ERROR_HANDLER) {
                     if (!errorHandler) {
+                        const logMessageFunction = AutoMapperLogger.error
+                            ? AutoMapperLogger.error.bind(AutoMapperLogger)
+                            : // eslint-disable-next-line @typescript-eslint/no-empty-function
+                              () => {};
                         errorHandler = {
-                            handle: AutoMapperLogger.error
-                                ? AutoMapperLogger.error.bind(AutoMapperLogger)
-                                : // eslint-disable-next-line @typescript-eslint/no-empty-function
-                                  () => {},
+                            handle: (error: MappingError) => {
+                                logMessageFunction(error.message);
+                            },
                         };
                     }
                     return errorHandler;

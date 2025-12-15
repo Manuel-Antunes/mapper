@@ -1,3 +1,4 @@
+import { MappingError } from '../errors/mapping-error';
 import { getErrorHandler, getMetadataMap } from '../symbols';
 import type {
     Constructor,
@@ -198,8 +199,12 @@ Error at "${destinationMemberPath}" on ${
                 } (${JSON.stringify(destination)})
 ---------------------------------------------------------------------
 Original error: ${originalError}`;
-                errorHandler.handle(errorMessage);
-                throw new Error(errorMessage);
+                const error = new MappingError(errorMessage, {
+                    cause: originalError as Error,
+                });
+
+                errorHandler.handle(error);
+                throw error;
             }
         };
 
