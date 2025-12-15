@@ -116,6 +116,8 @@ export interface MapOptions<
         mapping: Mapping<TSource, TDestination>,
         destinationObject: TDestination
     ) => TExtraArgs;
+    /** @internal - Used to track circular references during mapping */
+    _referenceMap?: WeakMap<any, any>;
 }
 
 export type ModelIdentifier<T = any> = string | symbol | Constructor<T>;

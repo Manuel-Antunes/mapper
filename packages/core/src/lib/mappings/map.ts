@@ -39,6 +39,11 @@ export function mapReturn<
     options: MapOptions<TSource, TDestination>,
     isMapArray = false
 ): TDestination {
+    // Initialize reference map for circular reference tracking if not already present
+    if (!options._referenceMap) {
+        options = { ...options, _referenceMap: new WeakMap() };
+    }
+
     return map<TSource, TDestination>({
         mapping,
         sourceObject,
@@ -71,6 +76,11 @@ export function mapMutate<
     options: MapOptions<TSource, TDestination>,
     isMapArray = false
 ): void {
+    // Initialize reference map for circular reference tracking if not already present
+    if (!options._referenceMap) {
+        options = { ...options, _referenceMap: new WeakMap() };
+    }
+
     map({
         sourceObject,
         mapping,
@@ -133,10 +143,21 @@ export function map<
     const errorHandler = getErrorHandler(mapper);
     const metadataMap = getMetadataMap(mapper);
 
+    // Check for circular reference
+    const referenceMap = options._referenceMap;
+    if (referenceMap && referenceMap.has(sourceObject)) {
+        return referenceMap.get(sourceObject) as TDestination;
+    }
+
     const destination: TDestination = mapDestinationConstructor(
         sourceObject,
         destinationIdentifier
     );
+
+    // Store reference to handle circular dependencies
+    if (referenceMap) {
+        referenceMap.set(sourceObject, destination);
+    }
 
     // get extraArguments
     const extraArguments = extraArgs?.(mapping, destination);
@@ -304,7 +325,7 @@ Original error: ${originalError}`;
                                 destinationMemberIdentifier as MetadataIdentifier
                             ),
                             each,
-                            { extraArgs }
+                            { extraArgs, _referenceMap: referenceMap }
                         )
                     )
                 );
@@ -325,7 +346,7 @@ Original error: ${originalError}`;
                         map({
                             sourceObject: mapInitializedValue as TSource,
                             mapping: nestedMapping,
-                            options: { extraArgs },
+                            options: { extraArgs, _referenceMap: referenceMap },
                             setMemberFn: setMemberMutateFn(memberValue),
                             getMemberFn: getMemberMutateFn(memberValue),
                         });
@@ -337,7 +358,7 @@ Original error: ${originalError}`;
                     map({
                         mapping: nestedMapping,
                         sourceObject: mapInitializedValue as TSource,
-                        options: { extraArgs },
+                        options: { extraArgs, _referenceMap: referenceMap },
                         setMemberFn: setMemberReturnFn,
                     })
                 );
