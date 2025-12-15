@@ -34,7 +34,10 @@ export function getMapping(
                 : String(destination);
         const errorHandler = getErrorHandler(mapper);
         const errorMessage = `Mapping is not found for ${sourceName} and ${destinationName}`;
-        const error = new MappingError(errorMessage);
+        const error = new MappingError(errorMessage, {
+            source,
+            destination,
+        });
         errorHandler.handle(error);
         throw error;
     }

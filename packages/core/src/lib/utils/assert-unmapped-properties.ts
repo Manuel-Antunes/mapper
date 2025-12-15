@@ -47,11 +47,18 @@ export function assertUnmappedProperties<
 
     if (unmappedKeys.length) {
         const parentInfo = `${sourceText} -> ${destinationText}`;
-        const error = new MappingError(`
+        const error = new MappingError(
+            `
 Unmapped properties for ${parentInfo}:
 -------------------
 ${unmappedKeys.join(',\n')}
-`);
+`,
+            {
+                destination: destinationIdentifier,
+                source: sourceIdentifier,
+                destinationObject: destinationObject,
+            }
+        );
         errorHandler.handle(error);
     }
 }

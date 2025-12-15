@@ -196,11 +196,16 @@ export function map<
 Error at "${destinationMemberPath}" on ${
                     (destinationIdentifier as Constructor)['prototype']
                         ?.constructor?.name || destinationIdentifier.toString()
-                } (${JSON.stringify(destination)})
+                }
 ---------------------------------------------------------------------
 Original error: ${originalError}`;
                 const error = new MappingError(errorMessage, {
-                    cause: originalError as Error,
+                    cause:
+                        originalError instanceof MappingError
+                            ? originalError.cause
+                            : originalError,
+                    destinationObject: destination,
+                    sourceObject
                 });
 
                 errorHandler.handle(error);

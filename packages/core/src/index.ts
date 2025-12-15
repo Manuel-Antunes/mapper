@@ -1,7 +1,7 @@
 export * from './lib/core';
 export * from './lib/types';
 export * from './lib/default-strategy-initializer-options';
-
+export * from "./lib/errors/mapping-error";
 export * from './lib/utils/recursion';
 export * from './lib/utils/is-empty';
 export * from './lib/utils/is-primitive-constructor';
