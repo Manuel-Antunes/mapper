@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import * as request from 'supertest';
+import request from 'supertest';
 import { getUser, getUserDto } from '../classes/utils/get-user';
 import { AppController } from './app.controller';
 import { AppModule } from './app.module';
@@ -65,7 +65,7 @@ describe(AppController.name, () => {
         return request(app.getHttpServer())
             .get('/raw-array')
             .expect(200)
-            .expect((response) => {
+            .expect((response: request.Response) => {
                 expect(response.body).toEqual(
                     JSON.parse(JSON.stringify([getUserDto()]))
                 );

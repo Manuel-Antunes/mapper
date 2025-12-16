@@ -3,6 +3,7 @@
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "packages/classes/src",
     "projectType": "library",
+    "tags": ["classes"],
     "targets": {
         "package": {
             "executor": "nx:run-commands",
@@ -31,7 +32,7 @@
             }
         },
         "lint": {
-            "executor": "@nx/linter:eslint",
+            "executor": "@nx/eslint:lint",
             "outputs": ["{options.outputFile}"],
             "options": {
                 "lintFilePatterns": ["packages/classes/**/*.ts"]
@@ -52,6 +53,5 @@
                 "cwd": "dist/packages/classes"
             }
         }
-    },
-    "tags": ["classes"]
+    }
 }

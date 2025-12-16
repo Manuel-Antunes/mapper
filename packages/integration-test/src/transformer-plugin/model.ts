@@ -182,6 +182,7 @@ class User {
      * @autoMapIgnore
      */
     ignoreMe;
+    @AutoMap()
     ignoreMeToo;
     static __AUTOMAPPER_METADATA_FACTORY__() {
         return [
@@ -200,9 +201,6 @@ class User {
         ];
     }
 }
-__decorate([
-    AutoMap()
-], User.prototype, "ignoreMeToo", void 0);
 exports.User = User;
 `;
 
@@ -279,6 +277,7 @@ export class User {
      * @autoMapIgnore
      */
     ignoreMe;
+    @AutoMap()
     ignoreMeToo;
     static __AUTOMAPPER_METADATA_FACTORY__() {
         return [
@@ -297,7 +296,4 @@ export class User {
         ];
     }
 }
-__decorate([
-    AutoMap()
-], User.prototype, "ignoreMeToo", void 0);
 `;

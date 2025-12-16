@@ -1,14 +1,31 @@
 {
-    "name": "@automapper/classes/transformer-plugin",
+    "name": "@automapper/classes-transformer-plugin",
     "version": "0.0.0",
     "type": "module",
+    "main": "./index.cjs",
+    "module": "./index.js",
+    "types": "./src/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./src/index.d.ts",
+            "import": {
+                "types": "./src/index.d.ts",
+                "default": "./index.js"
+            },
+            "require": {
+                "types": "./src/index.d.ts",
+                "default": "./index.cjs"
+            },
+            "default": "./index.js"
+        }
+    },
     "sideEffects": false,
     "publishConfig": {
         "access": "public"
     },
     "peerDependencies": {
-        "@automapper/core": "latest",
-        "@automapper/classes": "latest"
+        "@automapper/core": "workspace:*",
+        "@automapper/classes": "workspace:*"
     },
     "repository": {
         "type": "git",

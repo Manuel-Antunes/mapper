@@ -2,6 +2,7 @@
     "name": "classes-transformer-plugin",
     "$schema": "../../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "packages/classes/transformer-plugin/src",
+    "tags": ["classes"],
     "targets": {
         "package": {
             "command": "NX_CLOUD=true nx package-lib classes-transformer-plugin"
@@ -23,7 +24,7 @@
             }
         },
         "lint": {
-            "executor": "@nx/linter:eslint",
+            "executor": "@nx/eslint:lint",
             "outputs": ["{options.outputFile}"],
             "options": {
                 "lintFilePatterns": [
@@ -41,6 +42,5 @@
                 "passWithNoTests": true
             }
         }
-    },
-    "tags": ["classes"]
+    }
 }

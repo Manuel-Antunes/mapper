@@ -2,6 +2,7 @@
     "name": "sequelize",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "packages/sequelize/src",
+    "tags": ["sequelize"],
     "targets": {
         "package": {
             "command": "NX_CLOUD=true nx package-lib sequelize"
@@ -28,7 +29,7 @@
             }
         },
         "lint": {
-            "executor": "@nx/linter:eslint",
+            "executor": "@nx/eslint:lint",
             "outputs": ["{options.outputFile}"],
             "options": {
                 "lintFilePatterns": ["packages/sequelize/**/*.ts"]
@@ -49,6 +50,5 @@
                 "cwd": "dist/packages/sequelize"
             }
         }
-    },
-    "tags": ["sequelize"]
+    }
 }

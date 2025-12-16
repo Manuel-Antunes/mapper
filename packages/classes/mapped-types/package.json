@@ -1,7 +1,24 @@
 {
-    "name": "@automapper/classes/mapped-types",
+    "name": "@automapper/classes-mapped-types",
     "version": "0.0.0",
     "type": "module",
+    "main": "./index.cjs",
+    "module": "./index.js",
+    "types": "./src/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./src/index.d.ts",
+            "import": {
+                "types": "./src/index.d.ts",
+                "default": "./index.js"
+            },
+            "require": {
+                "types": "./src/index.d.ts",
+                "default": "./index.cjs"
+            },
+            "default": "./index.js"
+        }
+    },
     "sideEffects": false,
     "publishConfig": {
         "access": "public"

@@ -2,6 +2,7 @@
     "name": "mikro",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "packages/mikro/src",
+    "tags": ["mikro"],
     "targets": {
         "package": {
             "command": "NX_CLOUD=true nx package-lib mikro"
@@ -28,7 +29,7 @@
             }
         },
         "lint": {
-            "executor": "@nx/linter:eslint",
+            "executor": "@nx/eslint:lint",
             "outputs": ["{options.outputFile}"],
             "options": {
                 "lintFilePatterns": ["packages/mikro/**/*.ts"]
@@ -49,6 +50,5 @@
                 "cwd": "dist/packages/mikro"
             }
         }
-    },
-    "tags": ["mikro"]
+    }
 }

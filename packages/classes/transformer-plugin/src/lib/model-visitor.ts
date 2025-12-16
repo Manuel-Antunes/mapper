@@ -155,7 +155,7 @@ export class ModelVisitor {
         const visitedSourceFile = visitNode(
             sourceFile,
             nodeVisitorFactory(context, sourceFile)
-        );
+        ) as SourceFile;
 
         // if the target is CommonJS, keep as is
         if (ModelVisitor.isCommonJS) {
