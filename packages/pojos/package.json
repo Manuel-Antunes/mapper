@@ -10,7 +10,7 @@
         "access": "public"
     },
     "peerDependencies": {
-        "@automapper/core": "latest"
+        "@automapper/core": "workspace:*"
     },
     "repository": {
         "type": "git",

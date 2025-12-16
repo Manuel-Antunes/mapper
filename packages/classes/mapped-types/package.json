@@ -7,8 +7,8 @@
         "access": "public"
     },
     "peerDependencies": {
-        "@automapper/core": "latest",
-        "@automapper/classes": "latest"
+        "@automapper/core": "workspace:*",
+        "@automapper/classes": "workspace:*"
     },
     "repository": {
         "type": "git",

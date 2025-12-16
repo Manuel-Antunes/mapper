@@ -1,0 +1,17 @@
+packages:
+  - packages/*
+  - tools/*
+ignore-workspace-root-check: true
+onlyBuiltDependencies:
+  - '@nestjs/core'
+  - '@parcel/watcher'
+  - '@swc/core'
+  - 'bufferutil'
+  - 'core-js'
+  - 'cpu-features'
+  - 'esbuild'
+  - 'nx'
+  - 'protobufjs'
+  - 'sharp'
+  - 'ssh2'
+  - 'unrs-resolver'
