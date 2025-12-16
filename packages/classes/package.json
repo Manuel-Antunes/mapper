@@ -2,7 +2,7 @@
   "name": "@automapper/classes",
   "version": "8.8.1",
 
-  "main": "./index.cjs",
+  "main": "./index.cjs.js",
   "module": "./index.js",
   "types": "./src/index.d.ts",
   "peerDependencies": {
@@ -14,13 +14,13 @@
       "types": "./src/index.d.ts",
       "import": {
         "types": "./src/index.d.ts",
-        "default": "./index.js"
+        "default": "./index.esm.js"
       },
       "require": {
         "types": "./src/index.d.ts",
-        "default": "./index.cjs"
+        "default": "./index.cjs.js"
       },
-      "default": "./index.js"
+      "default": "./index.esm.js"
     },
     "./transformer-plugin": {
       "types": "./transformer-plugin/index.d.ts",
@@ -30,7 +30,7 @@
       },
       "require": {
         "types": "./transformer-plugin/index.d.ts",
-        "default": "./transformer-plugin/index.cjs"
+        "default": "./transformer-plugin/index.cjs.js"
       },
       "default": "./transformer-plugin/index.js"
     },
@@ -42,7 +42,7 @@
       },
       "require": {
         "types": "./mapped-types/index.d.ts",
-        "default": "./mapped-types/index.cjs"
+        "default": "./mapped-types/index.cjs.js"
       },
       "default": "./mapped-types/index.js"
     }

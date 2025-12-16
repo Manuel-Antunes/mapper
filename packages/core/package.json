@@ -2,7 +2,7 @@
   "name": "@automapper/core",
   "version": "8.8.1",
 
-  "main": "./index.cjs",
+  "main": "./index.cjs.js",
   "module": "./index.js",
   "types": "./src/index.d.ts",
   "exports": {
@@ -10,13 +10,13 @@
       "types": "./src/index.d.ts",
       "import": {
         "types": "./src/index.d.ts",
-        "default": "./index.js"
+        "default": "./index.esm.js"
       },
       "require": {
         "types": "./src/index.d.ts",
-        "default": "./index.cjs"
+        "default": "./index.cjs.js"
       },
-      "default": "./index.js"
+      "default": "./index.esm.js"
     }
   },
   "sideEffects": false,
