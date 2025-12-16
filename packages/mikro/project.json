@@ -7,7 +7,7 @@
             "command": "NX_CLOUD=true nx package-lib mikro"
         },
         "package-lib": {
-            "executor": "@nrwl/rollup:rollup",
+            "executor": "@nx/rollup:rollup",
             "outputs": ["{options.outputPath}"],
             "options": {
                 "project": "packages/mikro/package.json",
@@ -23,18 +23,19 @@
                     "@automapper/classes"
                 ],
                 "format": ["cjs", "esm"],
-                "updateBuildableProjectDepsInPackageJson": false
+                "updateBuildableProjectDepsInPackageJson": false,
+                "babelUpwardRootMode": true
             }
         },
         "lint": {
-            "executor": "@nrwl/linter:eslint",
+            "executor": "@nx/linter:eslint",
             "outputs": ["{options.outputFile}"],
             "options": {
                 "lintFilePatterns": ["packages/mikro/**/*.ts"]
             }
         },
         "test": {
-            "executor": "@nrwl/jest:jest",
+            "executor": "@nx/jest:jest",
             "outputs": ["{workspaceRoot}/coverage/packages/mikro"],
             "options": {
                 "jestConfig": "packages/mikro/jest.config.cjs",

@@ -15,7 +15,7 @@
             }
         },
         "package-lib": {
-            "executor": "@nrwl/rollup:rollup",
+            "executor": "@nx/rollup:rollup",
             "outputs": ["{options.outputPath}"],
             "options": {
                 "project": "packages/classes/package.json",
@@ -26,18 +26,19 @@
                 "compiler": "babel",
                 "external": ["typescript", "tslib", "@automapper/core"],
                 "format": ["cjs", "esm"],
-                "updateBuildableProjectDepsInPackageJson": false
+                "updateBuildableProjectDepsInPackageJson": false,
+                "babelUpwardRootMode": true
             }
         },
         "lint": {
-            "executor": "@nrwl/linter:eslint",
+            "executor": "@nx/linter:eslint",
             "outputs": ["{options.outputFile}"],
             "options": {
                 "lintFilePatterns": ["packages/classes/**/*.ts"]
             }
         },
         "test": {
-            "executor": "@nrwl/jest:jest",
+            "executor": "@nx/jest:jest",
             "outputs": ["{workspaceRoot}/coverage/packages/classes"],
             "options": {
                 "jestConfig": "packages/classes/jest.config.cjs",
