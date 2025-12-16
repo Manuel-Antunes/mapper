@@ -16,7 +16,7 @@ export type AnyConstructor = new (...args: any[]) => any;
 export type Constructor<T = any> = (new (...args: any[]) => T) &
     TransformerMetadataFactory<T>;
 
-export type Primitive = String | Number | Boolean | BigInt;
+export type Primitive = string | number | boolean | bigint;
 export type PrimitiveExtended = Primitive | Date;
 
 export type PrimitiveConstructor =

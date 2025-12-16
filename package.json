@@ -1,6 +1,6 @@
 {
     "name": "automapper",
-    "version": "0.0.0",
+    "version": "8.8.1",
     "license": "MIT",
     "scripts": {
         "commit": "git-cz",
@@ -10,6 +10,7 @@
         "release:beta": "dotenv release-it -- major --preRelease=beta",
         "test": "nx run-many --all --target=test --parallel",
         "package": "nx package-all core",
+        "package:no-cache": "nx package-all core --skip-nx-cache",
         "publish": "nx run-many --target=publish --all --parallel"
     },
     "private": true,

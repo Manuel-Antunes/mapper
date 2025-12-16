@@ -1,6 +1,6 @@
 {
   "name": "packages-documentation",
-  "version": "0.0.0",
+  "version": "8.8.1",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",

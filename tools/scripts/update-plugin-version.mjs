@@ -15,7 +15,7 @@ function updateFile(f, content) {
 
 const pluginVersion = Number(version.version.split('.').join(''));
 
-['index.js', 'index.cjs', 'src/lib/version.d.ts'].forEach((file) => {
+['index.esm.js', 'index.cjs.js', 'src/lib/version.d.ts'].forEach((file) => {
     const path = `dist/packages/classes/transformer-plugin/${file}`;
     updateFile(path, (content) => {
         return content.replace(/('|\")\{\{REPLACED\}\}('|\")/, pluginVersion);

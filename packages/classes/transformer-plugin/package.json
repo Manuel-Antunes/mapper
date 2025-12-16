@@ -1,7 +1,7 @@
 {
     "name": "@automapper/classes-transformer-plugin",
-    "version": "0.0.0",
-    "type": "module",
+    "version": "8.8.1",
+
     "main": "./index.cjs",
     "module": "./index.js",
     "types": "./src/index.d.ts",
