@@ -64,7 +64,30 @@ function decomposePath(path: string[]): {
 }
 
 function assignEmpty(obj: Record<string, unknown>, base: string) {
-    if (!obj.hasOwnProperty(base)) {
+    if (!Object.prototype.hasOwnProperty.call(obj, base)) {
+        // Check if the property has a setter defined
+        // If it does, skip assigning empty object to avoid triggering setter with {}
+        const descriptor = getPropertyDescriptor(obj, base);
+        if (descriptor && descriptor.set) {
+            // Don't assign empty object if there's a setter
+            // The actual value will be set later
+            return;
+        }
         obj[base] = {};
     }
+}
+
+function getPropertyDescriptor(
+    obj: Record<string, unknown>,
+    prop: string
+): PropertyDescriptor | undefined {
+    let current = obj;
+    while (current) {
+        const descriptor = Object.getOwnPropertyDescriptor(current, prop);
+        if (descriptor) {
+            return descriptor;
+        }
+        current = Object.getPrototypeOf(current);
+    }
+    return undefined;
 }

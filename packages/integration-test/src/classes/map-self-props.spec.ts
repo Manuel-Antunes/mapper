@@ -18,6 +18,10 @@ class Item {
     stock!: number;
     @AutoMap(() => Environment)
     environment!: Relation<Environment>;
+    @AutoMap(() => Item)
+    parentItem!: Relation<Item>;
+    @AutoMap(() => [Item])
+    children!: Relation<Item>[];
 }
 
 class ItemPropsDto {
@@ -26,6 +30,10 @@ class ItemPropsDto {
     stock!: number;
     @AutoMap(() => EnvironmentEntity)
     environment!: Relation<EnvironmentEntity>;
+    @AutoMap(() => ItemEntity)
+    parentItem!: Relation<ItemEntity>;
+    @AutoMap(() => [ItemEntity])
+    children!: Relation<ItemEntity>[];
 }
 
 class ItemEntity {
@@ -47,8 +55,41 @@ class ItemEntity {
         return this.props.stock;
     }
 
+    get parentItem(): Relation<ItemEntity> {
+        return this.props.parentItem;
+    }
+
+    set parentItem(value: Relation<ItemEntity>) {
+        this.props.parentItem = value;
+        if (value && value.children) {
+            if (!this.props.parentItem.children.includes(this)) {
+                this.props.parentItem.children.push(this);
+            }
+        }
+    }
+
+    get children(): Relation<ItemEntity>[] {
+        return this.props.children;
+    }
+
+    set children(value: Relation<ItemEntity>[]) {
+        this.props.children = value;
+        if (value) {
+            this.props.children.forEach((child) => {
+                child.parentItem = this;
+            });
+        }
+    }
+
     get environment(): Relation<EnvironmentEntity> {
         return this.props.environment;
+    }
+
+    get parentIndex(): number {
+        if (this.parentItem) {
+            return this.environment.items.indexOf(this.parentItem);
+        }
+        return -1;
     }
 }
 
@@ -113,7 +154,25 @@ export function createEntityMap<
             const props = new DtoClass();
             Object.assign(props, source);
             Reflect.set(source, IS_MAPPING, true);
+            function hasSetter<T extends object>(
+                target: T,
+                prop: PropertyKey
+            ): boolean {
+                let current: T = target;
 
+                while (current) {
+                    const descriptor = Object.getOwnPropertyDescriptor(
+                        current,
+                        prop
+                    );
+                    if (descriptor) {
+                        return typeof descriptor.set === 'function';
+                    }
+                    current = Object.getPrototypeOf(current);
+                }
+
+                return false;
+            }
             const instance = new EntityClass(props, source.id);
             counter++;
             const mapped = new Proxy<InstanceType<typeof EntityClass>>(
@@ -122,9 +181,17 @@ export function createEntityMap<
                     set(target, p, newValue, receiver) {
                         const isMapping = Reflect.get(source, IS_MAPPING);
                         if (!isMapping) {
-                            return Reflect.set(target, p, newValue, receiver);
+                            // Check if property has a setter, otherwise skip
+                            if (hasSetter(target, p)) {
+                                return Reflect.set(target, p, newValue);
+                            }
+                            // Property only has getter, ignore the set operation
+                            return true;
                         } else {
-                            return Reflect.set(props, p, newValue, receiver);
+                            if (hasSetter(target, p)) {
+                                return Reflect.set(target, p, newValue);
+                            }
+                            return Reflect.set(props, p, newValue);
                         }
                     },
                 }
@@ -153,6 +220,14 @@ describe('Map - ForSelf', () => {
     environment.region = 'us-east-1';
     environment.items = [item];
     item.environment = environment;
+    const otherItem = new Item();
+    otherItem.name = 'item2';
+    otherItem.price = 789;
+    otherItem.stock = 1011;
+    otherItem.environment = environment;
+    item.parentItem = item;
+    item.children = [otherItem];
+    environment.items.push(otherItem);
 
     afterEach(() => {
         mapper.dispose();
@@ -183,6 +258,9 @@ describe('Map - ForSelf', () => {
 
         entity.name = 'updated name';
         expect(entity.name).toBe('updated name');
-        expect(entity.environment.items[0]).toBe(entity);
+        expect(entity.children[0].parentItem.name).toBe(entity.name);
+        expect(entity.children[0].name).toBe('item2');
+        console.log(entity.children[0].parentItem);
+        expect(entity.environment.items[0].environment.items[0]).toBe(entity);
     });
 });
