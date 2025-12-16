@@ -161,16 +161,6 @@ describe('Map - ForSelf', () => {
     it('should map with SourceIdentifier', async () => {
         createEntityMap(
             mapper,
-            Item,
-            ItemEntity,
-            ItemPropsDto,
-            ItemEntity,
-            Item,
-            ItemPropsDto
-        );
-
-        createEntityMap(
-            mapper,
             Environment,
             EnvironmentEntity,
             EnvironmentDto,
@@ -193,5 +183,6 @@ describe('Map - ForSelf', () => {
 
         entity.name = 'updated name';
         expect(entity.name).toBe('updated name');
+        expect(entity.environment.items[0]).toBe(entity);
     });
 });
